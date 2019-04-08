@@ -31,31 +31,43 @@ get_data <- function(start = "07/2016", end = NULL,
   start_date <- lubridate::myd(start, truncated = 2)
   end_date <- lubridate::myd(end, truncated = 2)
   date_range <- seq(start_date, end_date, by = "months")
-  
  
-  
+  ## 3 ways to the same end
   
   # apply allows for much faster -for loops
   # lapply(a, b) just applies function b to sequence a and returns a new list of 
   # modifited sequence
   
-  urls <- lapply(date_range, make_url, base_url = base_url)
+  # urls <- lapply(date_range, make_url, base_url = base_url)
+  
+  ## 1) using for loops
+  
   # for loops can be easier for early development of code
   # for loop can be easier to read
   
-  for(u in urls) {
-    destfile = paste0(outdir, str_sub(u, -11))
-    #download.file(u, destfile = paste0(outdir, 
-    #                                  str_sub(u, -11)))
-    download.file(u, destfile = destfile)
-  }
-}
+  # for(u in urls) {
+  #   destfile = paste0(outdir, str_sub(u, -11))
+  #   download.file(u, destfile = destfile)
+  # }
+  
+  ## 2) as an apply with an in-line function
+  
+  # result <- lapply(urls, function(u) {
+  #   download.file(u, destfile = paste0(outdir, str_sub(u, -11)))
+  # })
+  
+  ## 3) tidy piped version that combines url generation & download
+  
+ lapply(date_range, make_url, base_url = base_url) %>% 
+    lapply(function(u) { download.file(u, destfile = paste0(outdir, str_sub(u, -11)))
+    })
+ }
 
 ### Manual Run ###
 # parameters
 
-# start = "11/2018"
-# end = "08/2018"
-# 
-# get_data(start)
+start = "11/2018"
+end = "08/2018"
+
+get_data(start)
 
