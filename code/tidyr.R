@@ -47,3 +47,30 @@ fac_lengths <- bikenet_long %>%
   group_by(year, facility) %>% 
   summarise(meters = sum(length_m)) %>% 
   mutate(miles = meters / 1609)
+
+# ggplot2 examples
+
+# aes sets aesthetics of the plot
+
+plot <- ggplot(fac_lengths, aes(year, miles, group = facility, color = facility))
+
+# now you can plot different types using the same aesthetics
+
+plot + geom_line()
+
+plot + geom_point()
+
+plot + geom_line() + scale_y_log10()
+
+plot + geom_line() + labs(title = "Change in facilities in Portland",
+                          subtitle = "2008 - 2013", caption = "Source: Portland METRO") + 
+  xlab("Year") +
+  ylab("Total Miles")
+
+# new plot! with facet_wrap function
+
+plot_2 <- ggplot(fac_lengths, aes(x = year, y = miles, group = facility))
+
+plot_2 + geom_line(size = 1, color = "blue") + 
+  facet_wrap( ~ facility) + scale_y_log10()
+
