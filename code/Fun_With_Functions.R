@@ -45,3 +45,46 @@ far_to_cel_2(32)
 # intentional errors to make sure others know why things work in the code
 
 
+far_to_kel <- function(temp){
+  if(!is.numeric(temp)) {
+    stop("temp must be numeric")
+  }
+  kelvin <- ((temp - 32) * (5/9)) + 273.15
+  return(kelvin)
+}
+
+# custom error code when "text" entered
+
+far_to_kel_2 <- function(temp){
+  stopifnot(is.numeric(temp))
+  kelvin <- ((temp - 32) * (5/9)) + 273.15
+  return(kelvin)
+}
+
+far_to_kel_2("13")
+
+# another way to call error code
+
+
+# use stopifnot() or if/not function to throw an error if "temp" is not a numeric value
+# for far_to_cel function
+
+far_to_cel_3 <- function(temp){
+    if(!is.numeric(temp)) {
+    stop("temp must be numeric")
+  }
+  kel <- far_to_kel(temp)
+  cel <- kel_to_cel(kel)
+  return(cel)
+}
+
+far_to_cel_3("13")
+far_to_cel_3(0)
+
+
+# to call a function...
+
+source("code/Fun_With_Functions.R")
+far_to_cel(32)
+
+# check-out Roxygen package for more formalized way of documenting functions
