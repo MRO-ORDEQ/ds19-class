@@ -16,7 +16,7 @@ pacman::p_load("readr")
 
 get_data <- function(start = "07/2016", end = NULL, 
                      base_url = "https://s3.amazonaws.com/biketown-tripdata-public/",
-                     outdir = "data/biketown/") {
+                     outdir = "C:/Users/morman/plants/ds19-class/data/biketown/") {
   # takes start and end in mm/yyyy format, and tries to download resaulting files
   # if no end date given, set to now (NULL)
   end <- ifelse(is.null(end), format (now(), "%m/%y"), end)
@@ -66,8 +66,8 @@ get_data <- function(start = "07/2016", end = NULL,
 ### Manual Run ###
 # parameters
 
-start = "11/2018"
-end = "08/2018"
+# start = "11/2018"
+# end = "08/2018"
 
-get_data(start)
+# get_data(start)
 
